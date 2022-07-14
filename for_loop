@@ -1,0 +1,55 @@
+for i in $(cat a);do cd $i; sbatch molcas-job.sh; cd ..;done
+
+################# this is a loop to delet the folders and files ###########################
+for i in $(cat a);do cd $i;mkdir safe;cp $i.xyz $i.velocity.xyz molcas-job.sh OPLS_aa.prm $i.key safe;rm *;cp safe/* ./;rm -r safe Continue;cd ..;echo $i;done
+
+for i in $(cat a);do cd $i;mkdir safe;cp $i.xyz $i.velocity.xyz molcas-job.sh OPLS_aa.prm $i.key safe;rm *;cp safe/* ./;rm -r safe Continue;cd ..;done
+
+#############################################for loop 2#############################
+
+############ this is a submission command for restart awk loop for OSC ###########################
+for i in $(awk '{print $1}' restart); do cd $i/Continue; sbatch molcas-job.sh $i.input;cd ../..;done
+
+################ this is a submission command for crash awk loop for OSC ###########################
+for i in $(awk '{print $1}' crash); do cd $i; sbatch molcas-job.sh $i.input; cd ..;done
+
+#***************** # this is submission command for restart awk loop for Seina # *****************
+for i in $(awk '{print $1}' restart); do cd $i/Continue;submit_Molcas_8.4_Serial.sh $i.input;cd ../..;done
+
+for i in $(awk '{print $1}' restart-b); do cd $i/Continue/Continue;submit_Molcas_8.4_Serial.sh $i.input;cd ../../..;done
+
+for i in $(awk '{print $1}' G106); do cd $i/Continue/Continue; submit_Molcas_8.4_Serial.sh $i.input; done  [IF G106 FOLDER HAVE ONLY ONE FILE, THEN WE NO LONGER USE ITERATION]
+
+#***************** # this is submission command for crash awk loop for Seina # *****************
+for i in $(awk '{print $1}' crash); do cd $i; submit_Molcas_8.4_Serial.sh $i.input; cd ..;done
+
+#***************** # ####################################################### # *****************
+######## 1st creat folder called a ########## then follow below loop for submissioo, and not forget to edit the .input and .Old ########
+###### this extra #########
+for some reason i copied wrongly the below file ######
+
+cp ../../geom000/CASSCF/geom000.input ./
+
+###### and want to delete as ctrl z ##########
+cp geom002.xyz geom002.key molcas-job.sh OPLS_aa.prm CASSCF/
+
+ls s -d geom* >a [TO CREAT AN A FOLDER]
+
+################# this is for job submission loop ###########################
+for i in $(cat a);do cp dyna.JobOld $i/$i.JobOld; cp GS_QD.input $i/$i.input;done
+
+for i in $(cat a);do cd $i; sbatch molcas-job.sh; cd ..;done
+
+for i in in $(ls -d geom1*); do cd $i; submit_Molcas_8.4_Serial.sh $i.input; cd ..; done
+
+for i in $(awk '{print $1}' rest94_98); do cp geom088.JobIph $i/Continue/$i.JobOld; done
+
+################# this is for delet folders and files loop ###########################
+for i in $(cat a);do cd $i;mkdir safe;cp $i.xyz $i.velocity.xyz molcas-job.sh OPLS_aa.prm $i.key safe;rm *;cp safe/* ./;rm -r safe Continue;cd ..;echo $i;done
+
+for i in $(cat a);do cd $i;mkdir safe;cp $i.xyz $i.velocity.xyz molcas-job.sh OPLS_aa.prm $i.key safe;rm *;cp safe/* ./;rm -r safe Continue;cd ..;done
+
+for i in $(awk '{print $1}' b); do cp geom000.JobIph $i/$i.JobOld; done
+
+for i in $(awk '{print $1}' restart_1); do cp geom000.JobIph $i/Continue/$i.JobOld; done
+############################################################################
